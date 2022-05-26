@@ -19,7 +19,7 @@ while True:
       if BlkDev == True and x[2] == 0:
         x[2] = 1
         print('Got '+x[1]+", You have been granted summary distruction, thank you for your service.")
-        subprocess.call(['xterm', '-e', 'sudo umount '+x[1]+'?*'])
-        subprocess.Popen(['xterm', '-e', 'sudo shred -v -n7 -z '+x[1]])
+        subprocess.call(['sudo umount '+x[1]+'?*'])
+        subprocess.Popen(['sudo shred -v -n7 -z '+x[1]])
         print("Waiting for devices")
   time.sleep(1)
