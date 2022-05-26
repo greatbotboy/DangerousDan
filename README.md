@@ -16,6 +16,7 @@ We needed an automated system for wiping old HDDs before they are chucked in the
 # Usage
 ```
 Run ./Danger.py
-plug in any block device
-wait
+Plug in any block device
+Wait
+Cry???
 ```
