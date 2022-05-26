@@ -4,7 +4,7 @@ import stat
 import subprocess
 import time
 
-drives = [["d","/dev/sdd",0],["e","/dev/sde",0],["f","/dev/sdf",0],["g","/dev/sdg",0],["h","/dev/sdh",0],["i","/dev/sdi",0],["j","/dev/sdj",0],["k","/dev/sdk",0],["l","/dev/sdl",0],["m","/dev/sdm",0]]
+drives = [["b","/dev/sdb",0],["c","/dev/sdc",0],["d","/dev/sdd",0],["e","/dev/sde",0],["f","/dev/sdf",0],["g","/dev/sdg",0],["h","/dev/sdh",0],["i","/dev/sdi",0],["j","/dev/sdj",0],["k","/dev/sdk",0],["l","/dev/sdl",0],["m","/dev/sdm",0]]
 
 def isblockdevice(path):
   return os.path.exists(path) and stat.S_ISBLK(os.stat(path).st_mode)
