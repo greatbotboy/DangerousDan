@@ -20,6 +20,6 @@ while True:
         x[2] = 1
         print('Got '+x[1]+", You have been granted summary distruction, thank you for your service.")
         subprocess.run(["umount", x[1]+'?*'])
-        subprocess.run(['shred', '-v', '-n7', '-z', x[1]])
+        subprocess.Popen(['shred', '-v', '-n7', '-z', x[1]])
         print("Waiting for devices")
   time.sleep(1)
