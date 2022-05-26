@@ -19,7 +19,7 @@ while True:
       if BlkDev == True and x[2] == 0:
         x[2] = 1
         print('Got '+x[1]+", You have been granted summary distruction, thank you for your service.")
-        os.system(["sudo", "umount", +x[1]+'?*'])
-        os.system(['sudo', 'shred', '-v', '-n7', '-z', +x[1]])
+        subprocess.run(["umount", +x[1]+'?*'])
+        subprocess.run(['shred', '-v', '-n7', '-z', +x[1]])
         print("Waiting for devices")
   time.sleep(1)
