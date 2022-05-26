@@ -12,3 +12,9 @@ DangerousDan looks for an attached block device and when detected uses shred to 
 # Why?
  
 We needed an automated system for wiping old HDDs before they are chucked in the bin. and seriously who doesn't love the thought of accidentally wiping their system drives while writing and modifying a program.
+
+# Usage
+
+Run ./Danger.py
+plug in any block device
+wait
