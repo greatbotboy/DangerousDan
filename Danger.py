@@ -26,7 +26,7 @@ while True:
         x[2] = 0
       if BlkDev == True and x[2] == 0:
         x[2] = 1
-        Spinner = subprocess.getoutput('cat /sys/block/sd'++'/queue/rotational')
+        Spinner = subprocess.getoutput('cat /sys/block/sd'+x[0]+'/queue/rotational')
         x[3] = Spinner
         if Spinner == '0':
           print('Got SSD '+x[1]+", You have been granted summary distruction, thank you for your service.")
