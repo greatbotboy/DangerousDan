@@ -19,7 +19,6 @@ def isblockdevice(path):
   return os.path.exists(path) and stat.S_ISBLK(os.stat(path).st_mode)
 
 while True:
-  print("Waiting for devices")
   for x in drives:
       BlkDev = isblockdevice(x[1])
       if BlkDev == False:
@@ -36,4 +35,5 @@ while True:
           print('Got Spinner '+x[1]+", You have been granted summary distruction, thank you for your service.")
           subprocess.run(["umount", x[1]+'?*'])
           subprocess.Popen(['shred', '-v', '-n7', '-z', x[1]])
+      print("Waiting for devices")
   time.sleep(1)
