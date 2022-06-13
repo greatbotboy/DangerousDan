@@ -30,7 +30,7 @@ while True:
         if Spinner == '0':
           print('Got SSD '+x[1]+", You have been granted summary distruction, thank you for your service.")
           subprocess.run(["umount", x[1]+'?*'])
-          subprocess.Popen(['blkdiscard', '-z',  x[1]])
+          subprocess.Popen(['blkdiscard', '-z', '-f',  x[1]])
         else:
           print('Got Spinner '+x[1]+", You have been granted summary distruction, thank you for your service.")
           subprocess.run(["umount", x[1]+'?*'])
