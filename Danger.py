@@ -63,12 +63,28 @@ def wipe_device(device_path):
             process = subprocess.run(command, check=True, capture_output=True, text=True)
             logging.info(f"Successfully wiped {device_path}.")
         else:
-            logging.info(f"Detected HDD ({device_path}). Wiping with shred...")
-            # Use shred for HDDs
-            command = ['shred', '-v', '-n', str(CONFIG["SHRED_PASSES"]), '-z', device_path]
-            process = subprocess.run(command, check=True, capture_output=True, text=True)
-            logging.info(f"Successfully wiped {device_path}.")
-
+            logging.info(f"Detected HDD ({device_path}). Attempting ATA Secure Erase...")
+            # For HDDs, ATA Secure Erase is often faster and more thorough than shred.
+            # It requires setting a temporary password and then issuing the erase command.
+            try:
+                # 1. Set a temporary password (required for secure erase)
+                subprocess.run(['hdparm', '--user-master', 'user', '--security-set-pass', 'p', device_path], check=True, capture_output=True)
+                # 2. Issue the secure erase command. This can take a long time.
+                # Using --security-erase instead of --security-erase-enhanced for broader compatibility.
+                logging.info(f"Issuing ATA Secure Erase command to {device_path}. This may take a long time...")
+                subprocess.run(['hdparm', '--user-master', 'user', '--security-erase', 'p', device_path], check=True, capture_output=True)
+                logging.info(f"ATA Secure Erase completed successfully for {device_path}.")
+            except (subprocess.CalledProcessError, FileNotFoundError) as e:
+                logging.warning(f"ATA Secure Erase failed for {device_path}. Falling back to shred.")
+                if isinstance(e, subprocess.CalledProcessError):
+                    logging.warning(f"Reason: {e.stderr.decode('utf-8', errors='ignore').strip()}")
+                
+                # Fallback to shred if hdparm fails or isn't installed
+                logging.info(f"Wiping {device_path} with shred...")
+                command = ['shred', '-v', '-n', str(CONFIG["SHRED_PASSES"]), '-z', device_path]
+                process = subprocess.run(command, check=True, capture_output=True, text=True)
+                logging.info(f"Successfully wiped {device_path} with shred.")
+ 
     except FileNotFoundError:
         logging.warning(f"Could not determine disk type for {device_path}. It may have been disconnected.")
     except subprocess.CalledProcessError as e:
